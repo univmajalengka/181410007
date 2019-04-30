@@ -4,5 +4,5 @@
 :phone: 082240600247
 
 ## Courses
-Teknik Informatika 2A
+Teknik Informatika 2A\
 Struktur Data 1
