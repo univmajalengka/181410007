@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 21, 2020 at 03:25 AM
--- Server version: 10.4.6-MariaDB
--- PHP Version: 7.3.9
+-- Waktu pembuatan: 04 Apr 2020 pada 06.19
+-- Versi server: 10.4.6-MariaDB
+-- Versi PHP: 7.3.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,168 +19,189 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `sbdl_afif`
+-- Database: `penjualan`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `barang`
+-- Struktur dari tabel `barang`
 --
 
 CREATE TABLE `barang` (
-  `id_barang` int(11) NOT NULL,
-  `nama_barang` varchar(100) NOT NULL,
-  `stok_barang` int(11) NOT NULL,
-  `harga_barang` int(11) NOT NULL,
-  `kode_barang` varchar(25) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `barang`
---
-
-INSERT INTO `barang` (`id_barang`, `nama_barang`, `stok_barang`, `harga_barang`, `kode_barang`) VALUES
-(1, 'Mesin Cuci', 10, 150000, 'K01');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `pelanggan`
---
-
-CREATE TABLE `pelanggan` (
-  `kode_pelanggan` varchar(5) NOT NULL,
-  `nama_pelanggan` varchar(40) NOT NULL,
-  `alamat_pelanggan` varchar(30) NOT NULL,
-  `telepon_pelanggan` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `pelanggan`
---
-
-INSERT INTO `pelanggan` (`kode_pelanggan`, `nama_pelanggan`, `alamat_pelanggan`, `telepon_pelanggan`) VALUES
-('P01', 'Afif', 'Leuwimunding', '085155270512');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `pengguna`
---
-
-CREATE TABLE `pengguna` (
   `id` int(11) NOT NULL,
-  `user` varchar(10) NOT NULL,
-  `pass` varchar(10) NOT NULL
+  `nama` text NOT NULL,
+  `jenis` text NOT NULL,
+  `modal` int(11) NOT NULL,
+  `harga` int(11) NOT NULL,
+  `jumlah` int(11) NOT NULL,
+  `sisa` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `pengguna`
+-- Dumping data untuk tabel `barang`
 --
 
-INSERT INTO `pengguna` (`id`, `user`, `pass`) VALUES
-(1, 'admin', 'admin');
+INSERT INTO `barang` (`id`, `nama`, `jenis`, `modal`, `harga`, `jumlah`, `sisa`) VALUES
+(35, 'Snack Potatoes', 'Makanan', 1000, 2000, 3, 10),
+(36, 'Jus Jeruk', 'Minuman', 3000, 5000, 2, 5),
+(37, 'Jus Alpukat', 'Minuman', 5000, 8000, 15, 20),
+(38, 'Coffe Vienam', 'Minuman', 8000, 10000, 12, 20),
+(39, 'Kentang Goreng', 'Makanan', 5000, 8000, 10, 12);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `supplier`
+-- Struktur dari tabel `barang_laku`
 --
 
-CREATE TABLE `supplier` (
-  `kode_supplier` varchar(5) NOT NULL,
-  `nama_supplier` varchar(40) NOT NULL,
-  `alamat_supplier` varchar(20) NOT NULL,
-  `telepon_supplier` varchar(20) NOT NULL
+CREATE TABLE `barang_laku` (
+  `id` int(11) NOT NULL,
+  `nama` text NOT NULL,
+  `jumlah` int(11) NOT NULL,
+  `harga` int(11) NOT NULL,
+  `total_harga` int(20) NOT NULL,
+  `laba` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `supplier`
+-- Dumping data untuk tabel `barang_laku`
 --
 
-INSERT INTO `supplier` (`kode_supplier`, `nama_supplier`, `alamat_supplier`, `telepon_supplier`) VALUES
-('S01', 'Richard', 'Oxford', '02338686');
+INSERT INTO `barang_laku` (`id`, `nama`, `jumlah`, `harga`, `total_harga`, `laba`) VALUES
+(66, 'Snack Potatoes', 5, 2000, 10000, 5000),
+(67, 'Snack Potatoes', 2, 5000, 10000, 8000),
+(68, 'Jus Jeruk', 3, 5000, 15000, 6000),
+(69, 'Jus Alpukat', 5, 8000, 40000, 15000),
+(70, 'Coffe Vienam', 8, 10000, 80000, 16000),
+(71, 'Kentang Goreng', 2, 8000, 16000, 6000);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `transaksi`
+-- Struktur dari tabel `pengeluaran`
 --
 
-CREATE TABLE `transaksi` (
-  `id_trans` int(11) NOT NULL,
-  `id_beli` int(11) NOT NULL,
-  `kode_barang` varchar(25) NOT NULL,
-  `id_barang` int(11) NOT NULL,
-  `nama_barang` varchar(100) NOT NULL,
-  `harga_barang` int(11) NOT NULL,
-  `jumlah_barang` varchar(10) NOT NULL,
-  `tgl_beli` date NOT NULL
+CREATE TABLE `pengeluaran` (
+  `id` int(11) NOT NULL,
+  `tanggal` date NOT NULL,
+  `keperluan` text NOT NULL,
+  `nama` text NOT NULL,
+  `jumlah` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `transaksi`
+-- Dumping data untuk tabel `pengeluaran`
 --
 
-INSERT INTO `transaksi` (`id_trans`, `id_beli`, `kode_barang`, `id_barang`, `nama_barang`, `harga_barang`, `jumlah_barang`, `tgl_beli`) VALUES
-(1, 1, 'K01', 1, 'Mesin Cuci', 150000, '5', '2020-03-19');
+INSERT INTO `pengeluaran` (`id`, `tanggal`, `keperluan`, `nama`, `jumlah`) VALUES
+(1, '2015-02-06', 'de', 'diki', 1234);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `suplier`
+--
+
+CREATE TABLE `suplier` (
+  `id` int(11) NOT NULL,
+  `nama_suplier` varchar(50) NOT NULL,
+  `alamat_suplier` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `suplier`
+--
+
+INSERT INTO `suplier` (`id`, `nama_suplier`, `alamat_suplier`) VALUES
+(1, 'PT.Snack Indonesia', 'Bandung');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `user`
+--
+
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `user`
+--
+
+INSERT INTO `user` (`id`, `username`, `password`) VALUES
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `barang`
+-- Indeks untuk tabel `barang`
 --
 ALTER TABLE `barang`
-  ADD PRIMARY KEY (`id_barang`);
-
---
--- Indexes for table `pelanggan`
---
-ALTER TABLE `pelanggan`
-  ADD PRIMARY KEY (`kode_pelanggan`);
-
---
--- Indexes for table `pengguna`
---
-ALTER TABLE `pengguna`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `supplier`
+-- Indeks untuk tabel `barang_laku`
 --
-ALTER TABLE `supplier`
-  ADD PRIMARY KEY (`kode_supplier`);
+ALTER TABLE `barang_laku`
+  ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `transaksi`
+-- Indeks untuk tabel `pengeluaran`
 --
-ALTER TABLE `transaksi`
-  ADD PRIMARY KEY (`id_trans`);
+ALTER TABLE `pengeluaran`
+  ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- Indeks untuk tabel `suplier`
+--
+ALTER TABLE `suplier`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `barang`
+-- AUTO_INCREMENT untuk tabel `barang`
 --
 ALTER TABLE `barang`
-  MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
--- AUTO_INCREMENT for table `pengguna`
+-- AUTO_INCREMENT untuk tabel `barang_laku`
 --
-ALTER TABLE `pengguna`
+ALTER TABLE `barang_laku`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+
+--
+-- AUTO_INCREMENT untuk tabel `pengeluaran`
+--
+ALTER TABLE `pengeluaran`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `transaksi`
+-- AUTO_INCREMENT untuk tabel `suplier`
 --
-ALTER TABLE `transaksi`
-  MODIFY `id_trans` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `suplier`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT untuk tabel `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
